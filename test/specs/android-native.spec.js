@@ -46,7 +46,7 @@ describe('Android Native Feature Tests', () => {
         await driver.pause('3000')
     })
 
-    it.only('Working with a date piker', async () => {
+    it('Working with a date piker', async () => {
         await driver.startActivity("io.appium.android.apis", "io.appium.android.apis.view.DateWidgets1")
 
         const date = await $('//*[@resource-id="io.appium.android.apis:id/dateDisplay"]')
