@@ -1,4 +1,4 @@
-describe('Add Notes', () => {
+describe('Delete Notes', () => {
     it('Skip tutorial', async () => {
         await $('//*[@resource-id="com.socialnmobile.dictapps.notepad.color.note:id/btn_start_skip"]').click()
 
@@ -23,5 +23,29 @@ describe('Add Notes', () => {
 
         await expect($('//*[@resource-id="com.socialnmobile.dictapps.notepad.color.note:id/view_note"]'))
             .toHaveText("Naruto\nOnePiece\nAOT")
+    })
+
+    it('Delete a note & check the note in trash can', async () => {
+        await driver.back()
+
+        const note = await $('//*[@resource-id="com.socialnmobile.dictapps.notepad.color.note:id/title"]').getText()
+
+        await $('//*[@resource-id="com.socialnmobile.dictapps.notepad.color.note:id/title"]').click()
+
+        await $('~More').click()
+
+        await $('//*[@text="Delete"]').click()
+
+        await driver.acceptAlert()
+
+        await $('//*[@resource-id="com.socialnmobile.dictapps.notepad.color.note:id/icon_nav"]').click()
+
+        await $('//*[@text="Trash Can"]').click()
+
+        const trashCanItem = await $('//*[@resource-id="com.socialnmobile.dictapps.notepad.color.note:id/title"]')
+
+        await expect(trashCanItem).toHaveText(note)
+
+        await expect($('//*[@text="Fav anime List"]')).toBeDisplayed()
     })
 })
