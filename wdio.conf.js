@@ -1,4 +1,5 @@
 const path = require('path');
+const video = require('wdio-video-reporter');
 
 exports.config = {
     //
@@ -24,7 +25,7 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/android/delete-note-screen.spec.js'
+        './test/specs/**/ios*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -52,14 +53,23 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        platformName: 'Android',
-        'appium:platformVersion': '11.0',
-        'appium:deviceName': 'Pixel 3',
-        'appium:automationName': 'UIAutomator2',
-        'appium:app': path.join(process.cwd(), './app/android/ColorNote+Notepad.apk'),
-        'appium:autoGrantPermissions': true
-    }],
+    capabilities: [
+        // {
+        //     platformName: 'Android',
+        //     'appium:platformVersion': '11.0',
+        //     'appium:deviceName': 'Pixel 3',
+        //     'appium:automationName': 'UIAutomator2',
+        //     'appium:app': path.join(process.cwd(), './app/android/ColorNote+Notepad.apk'),
+        //     'appium:autoGrantPermissions': true
+        // },
+        {
+            platformName: 'ios',
+            'appium:platformVersion': '16.0',
+            'appium:deviceName': 'iPhone 14 Pro Max',
+            'appium:automationName': 'XCUITest',
+            'appium:app': path.join(process.cwd(), './app/ios/UIKitCatalog.app')
+        }
+    ],
     //
     // ===================
     // Test Configurations
@@ -129,9 +139,18 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
+    // reporters: [
+    //     [video, {
+    //         saveAllVideos: true,
+    //         videoSlowdownMultiplier: 3,
+    //     }],
+    //     ['allure', {
+    //         outputDir: './_results_/allure-raw',
+    //         disableWebdriverStepsReporting: true,
+    //         disableWebdriverScreenshotsReporting: true
+    //     }],
+    // ],
     reporters: ['spec'],
-
-
 
     //
     // Options to be passed to Mocha.
