@@ -1,5 +1,5 @@
 describe('iOS', () => {
-    it('find element by acessibility id', async () => {
+    it.only('find element by acessibility id', async () => {
         await $('~Alert Views').click()
         await $('~Simple').click()
 
@@ -41,7 +41,7 @@ describe('iOS', () => {
         await expect(await driver.getAlertText()).toContain('A Short Title Is Best')
     })
 
-    it.only('Exercise: Enter text in the search field', async () => {
+    it('Exercise: Enter text in the search field', async () => {
         await $('~Search').click()
         await $('~Default').click()
 
